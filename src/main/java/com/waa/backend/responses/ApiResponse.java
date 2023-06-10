@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting.responses;
+package com.waa.backend.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

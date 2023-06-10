@@ -1,4 +1,5 @@
-package com.aeontanvir.projectcosting.dtos;
+package com.waa.backend.dtos;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

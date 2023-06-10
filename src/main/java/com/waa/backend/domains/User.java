@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting.domains;
+package com.waa.backend.domains;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

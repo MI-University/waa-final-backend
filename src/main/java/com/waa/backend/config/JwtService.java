@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting.config;
+package com.waa.backend.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

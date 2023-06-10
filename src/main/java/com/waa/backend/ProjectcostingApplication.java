@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting;
+package com.waa.backend;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

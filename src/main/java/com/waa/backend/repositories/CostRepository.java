@@ -1,6 +1,6 @@
-package com.aeontanvir.projectcosting.repositories;
+package com.waa.backend.repositories;
 
-import com.aeontanvir.projectcosting.domains.Cost;
+import com.waa.backend.domains.Cost;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CostRepository extends JpaRepository<Cost, Long> {

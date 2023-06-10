@@ -1,6 +1,6 @@
-package com.aeontanvir.projectcosting.config;
+package com.waa.backend.config;
 
-import com.aeontanvir.projectcosting.repositories.UserRepository;
+import com.waa.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

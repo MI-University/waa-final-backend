@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting;
+package com.waa.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

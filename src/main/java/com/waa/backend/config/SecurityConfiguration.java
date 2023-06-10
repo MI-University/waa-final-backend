@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting.config;
+package com.waa.backend.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

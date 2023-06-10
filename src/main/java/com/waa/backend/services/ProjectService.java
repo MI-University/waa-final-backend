@@ -1,6 +1,6 @@
-package com.aeontanvir.projectcosting.services;
+package com.waa.backend.services;
 
-import com.aeontanvir.projectcosting.dtos.ProjectDto;
+import com.waa.backend.dtos.ProjectDto;
 
 import java.util.List;
 

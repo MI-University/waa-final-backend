@@ -1,10 +1,10 @@
-package com.aeontanvir.projectcosting.auth;
+package com.waa.backend.auth;
 
 
-import com.aeontanvir.projectcosting.config.JwtService;
-import com.aeontanvir.projectcosting.domains.Role;
-import com.aeontanvir.projectcosting.domains.User;
-import com.aeontanvir.projectcosting.repositories.UserRepository;
+import com.waa.backend.config.JwtService;
+import com.waa.backend.domains.Role;
+import com.waa.backend.domains.User;
+import com.waa.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

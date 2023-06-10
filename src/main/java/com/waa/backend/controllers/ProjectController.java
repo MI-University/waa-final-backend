@@ -1,9 +1,9 @@
-package com.aeontanvir.projectcosting.controllers;
+package com.waa.backend.controllers;
 
 
-import com.aeontanvir.projectcosting.apiresponse.ApiResponse;
-import com.aeontanvir.projectcosting.dtos.ProjectDto;
-import com.aeontanvir.projectcosting.services.ProjectService;
+import com.waa.backend.apiresponse.ApiResponse;
+import com.waa.backend.dtos.ProjectDto;
+import com.waa.backend.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;

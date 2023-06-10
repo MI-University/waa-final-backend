@@ -1,8 +1,8 @@
-package com.aeontanvir.projectcosting.services;
+package com.waa.backend.services;
 
 import java.util.List;
 
-import com.aeontanvir.projectcosting.dtos.CostDto;
+import com.waa.backend.dtos.CostDto;
 
 public interface CostService {
     public List<CostDto> getAll();

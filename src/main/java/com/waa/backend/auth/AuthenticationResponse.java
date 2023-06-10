@@ -1,4 +1,4 @@
-package com.aeontanvir.projectcosting.auth;
+package com.waa.backend.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
