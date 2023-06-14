@@ -18,6 +18,10 @@ spring:
   sql:
     init:
       mode: always
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 server:
-  port: 8080
+  port: 9095
 debug: true

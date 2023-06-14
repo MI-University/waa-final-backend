@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -28,9 +29,7 @@ public class SecurityConfiguration {
                         "/api/v1/auth/**"
                 )
                 .permitAll()
-                .requestMatchers(
-                        "/h2-console/**"
-                )
+                .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -40,6 +39,7 @@ public class SecurityConfiguration {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.headers().frameOptions().disable();
         return httpSecurity.build();
     }
 }
