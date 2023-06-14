@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: waa-final-project
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true
+    generate-ddl: true
+  sql:
+    init:
+      mode: always
+server:
+  port: 8080
+debug: true

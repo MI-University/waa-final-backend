@@ -3,9 +3,9 @@ package com.waa.backend.services.impl;
 import com.waa.backend.domains.Project;
 import com.waa.backend.dtos.ProjectDto;
 import com.waa.backend.exceptions.ResourceNotFoundException;
-import com.waa.backend.helpers.ModelMapperHelper;
 import com.waa.backend.repositories.ProjectRepository;
 import com.waa.backend.services.ProjectService;
+import com.waa.backend.util.ModelMapperHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

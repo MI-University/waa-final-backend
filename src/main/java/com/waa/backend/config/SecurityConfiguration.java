@@ -17,13 +17,20 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**")
+                .requestMatchers(
+                        "/api/v1/auth/**"
+                )
+                .permitAll()
+                .requestMatchers(
+                        "/h2-console/**"
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated()
