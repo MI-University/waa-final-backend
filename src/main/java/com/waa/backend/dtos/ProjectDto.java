@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectDto {
-    private long id;
     private String title;
     private String description;
     private double budget;

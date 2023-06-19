@@ -21,6 +21,4 @@ public class Project {
     private String title;
     private String description;
     private double budget;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
-    private List<Cost> costs;
 }

@@ -1,0 +1,65 @@
+package com.waa.backend.controllers;
+
+import com.waa.backend.apiresponse.ApiResponse;
+import com.waa.backend.services.GenericCrudService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@AllArgsConstructor
+public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericCrudService<REQ, DTO, ID>> implements GenericCrudController<REQ, DTO, ID> {
+
+    @Autowired
+    private S service;
+    private String modelName;
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<DTO>>> getAll() {
+        List<DTO> entities = service.getAll();
+        return ResponseEntity.ok(ApiResponse.success(this.modelName + " retrieved successfully.", entities));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<DTO>> getById(@PathVariable ID id) {
+        DTO entity = service.getById(id);
+        if (entity != null) {
+            return ResponseEntity.ok(ApiResponse.success(this.modelName + " retrieved successfully.", entity));
+        } else {
+            return ResponseEntity.ok(ApiResponse.error(this.modelName + " retrieved failed."));
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<DTO>> create(@RequestBody REQ entity) {
+        DTO createdEntity = service.create(entity);
+        if (entity != null) {
+            return ResponseEntity.ok(ApiResponse.success(this.modelName + " created successfully.", createdEntity));
+        } else {
+            return ResponseEntity.ok(ApiResponse.error(this.modelName + " create failed."));
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<DTO>> update(@PathVariable ID id, @RequestBody REQ entity) {
+        DTO updatedEntity = service.update(entity, id);
+        if (entity != null) {
+            return ResponseEntity.ok(ApiResponse.success(this.modelName + " updated successfully.", updatedEntity));
+        } else {
+            return ResponseEntity.ok(ApiResponse.error(this.modelName + " update failed."));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable ID id) {
+        boolean deleted = service.delete(id);
+        if (deleted) {
+            return ResponseEntity.ok(ApiResponse.success(this.modelName + " deleted successfully.", null));
+        } else {
+            return ResponseEntity.ok(ApiResponse.error(this.modelName + " update failed."));
+        }
+    }
+}

@@ -26,7 +26,7 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-                        "/api/v1/auth/**"
+                            "/api/v1/projects/**"
                 )
                 .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))

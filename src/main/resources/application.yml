@@ -24,4 +24,4 @@ spring:
       path: /h2-console
 server:
   port: 9095
-debug: true
+#debug: true
