@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin("*")
 public class UserController extends GenericCrudControllerImpl<UserRequest, UserDto, Long, UserService> {
     UserService userService;
     public UserController(UserService userService) {

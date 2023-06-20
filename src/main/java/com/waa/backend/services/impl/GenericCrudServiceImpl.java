@@ -84,7 +84,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
                     entityField.setAccessible(true);
 
                     // Check if the field names match
-                    if (entityField.getName().equals(fieldName)) {
+                    if (entityField.getName().equals(fieldName) && fieldValue != null) {
                         // Set the field value in the entity
                         entityField.set(entity, fieldValue);
                         break;
