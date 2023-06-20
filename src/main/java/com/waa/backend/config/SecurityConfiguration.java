@@ -18,18 +18,21 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(
-                            "/api/v1/projects/**"
-                )
+                .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
+                .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-resources/*"))
+                .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
                 .permitAll()
                 .anyRequest()
                 .authenticated()

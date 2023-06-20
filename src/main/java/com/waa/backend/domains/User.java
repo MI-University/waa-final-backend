@@ -17,14 +17,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_user")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
+    private boolean isApproved;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -42,7 +44,6 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -50,7 +51,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !this.isApproved;
     }
 
     @Override
@@ -61,5 +62,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean getIsApproved() {
+        return this.isApproved;
     }
 }

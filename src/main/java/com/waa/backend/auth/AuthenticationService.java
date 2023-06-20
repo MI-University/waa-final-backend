@@ -25,8 +25,10 @@ public class AuthenticationService {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(request.getRole())
+                .isApproved(request.getRole() == Role.CUSTOMER)
                 .build();
+
         User user = userRepository.save(newUser);
         String jwtToken = jwtService.generateToken(user);
 
@@ -35,6 +37,8 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .email(user.getEmail())
                 .userId(user.getId())
+                .name(user.getName())
+                .isApproved(user.getIsApproved())
                 .build();
     }
 
@@ -49,6 +53,8 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .email(user.getEmail())
                 .userId(user.getId())
+                .name(user.getName())
+                .isApproved(user.getIsApproved())
                 .build();
     }
 }

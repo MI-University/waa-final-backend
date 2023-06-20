@@ -1,5 +1,6 @@
-package com.waa.backend.auth;
+package com.waa.backend.request;
 
+import com.waa.backend.domains.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private String token;
-    private String email;
-    private Long userId;
+public class UserRequest {
     private String name;
-    private boolean isApproved;
+    private String email;
+    private Role role;
 }

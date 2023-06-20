@@ -7,6 +7,5 @@ public interface GenericCrudService<REQ, DTO, ID> {
     DTO getById(ID id);
     DTO create(REQ entity);
     DTO update(REQ req, ID id);
-
     boolean delete(ID id);
 }
