@@ -33,6 +33,13 @@ public class DataInitializationService implements CommandLineRunner {
                 .role(Role.OWNER)
                 .approved(true).build();
         userRepository.save(owner);
+        User owner1 = User.builder()
+                .name("owner1")
+                .email("owner1@gmail.com")
+                .password(passwordEncoder.encode("owner1"))
+                .role(Role.OWNER)
+                .approved(false).build();
+        userRepository.save(owner1);
         User user1 = User.builder()
                 .name("user1")
                 .email("user1@gmail.com")
