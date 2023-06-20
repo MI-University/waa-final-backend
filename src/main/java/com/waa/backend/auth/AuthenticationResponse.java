@@ -16,5 +16,5 @@ public class AuthenticationResponse {
     private Long userId;
     private String name;
     private Role role;
-    private boolean isApproved;
+    private boolean approved;
 }

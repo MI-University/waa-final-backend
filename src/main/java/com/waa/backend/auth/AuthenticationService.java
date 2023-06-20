@@ -29,7 +29,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
-                .isApproved(request.getRole() == Role.CUSTOMER)
+                .approved(request.getRole() == Role.CUSTOMER)
                 .build();
 
         User user = userRepository.save(newUser);
@@ -42,7 +42,7 @@ public class AuthenticationService {
                 .userId(user.getId())
                 .name(user.getName())
                 .role(user.getRole())
-                .isApproved(user.getIsApproved())
+                .approved(user.getapproved())
                 .build();
     }
 
@@ -59,7 +59,7 @@ public class AuthenticationService {
                 .userId(user.getId())
                 .name(user.getName())
                 .role(user.getRole())
-                .isApproved(user.getIsApproved())
+                .approved(user.getapproved())
                 .build();
     }
 }

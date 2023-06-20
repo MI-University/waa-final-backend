@@ -44,7 +44,6 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
 
         // Update the fields of the existing entity with the values from the request object
         updateEntityFromRequest(req, existingEntity);
-
         // Save the updated entity
         E savedEntity = repository.save(existingEntity);
 

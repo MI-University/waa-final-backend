@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @NotNull
     private String email;
     private String password;
-    private boolean isApproved;
+    private boolean approved;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -57,7 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isApproved;
+        return this.approved;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public boolean getIsApproved() {
-        return this.isApproved;
+    public boolean getapproved() {
+        return this.approved;
     }
 }

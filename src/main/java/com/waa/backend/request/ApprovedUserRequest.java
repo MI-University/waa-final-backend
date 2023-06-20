@@ -1,5 +1,5 @@
 package com.waa.backend.request;
 
 public class ApprovedUserRequest {
-    boolean isApproved;
+    boolean approved;
 }

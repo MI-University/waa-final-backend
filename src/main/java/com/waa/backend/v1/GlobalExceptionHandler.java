@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleException(Exception exception) {
         String errorMessage = "An error occurred: " + exception.getMessage();
         ApiResponse<Void> response = new ApiResponse<>(false, errorMessage, null);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
 
