@@ -3,6 +3,7 @@ package com.waa.backend.services.impl;
 import com.waa.backend.domains.Address;
 import com.waa.backend.domains.Property;
 import com.waa.backend.domains.PropertyState;
+import com.waa.backend.dtos.AddressDto;
 import com.waa.backend.dtos.PropertyDto;
 import com.waa.backend.dtos.PropertyFilterDto;
 import com.waa.backend.repositories.PropertyRepository;
@@ -67,9 +68,9 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
 
     @Override
     public PropertyDto create(PropertyRequest propertyRequest) {
-        Address address = this.addressService.createAndGetAddress(propertyRequest.getAddressDto());
+        AddressDto address = this.addressService.create(propertyRequest.getAddress());
         Property p = modelMapper.map(propertyRequest, Property.class);
-        p.setAddress(address);
+        p.setAddress(modelMapper.map(address, Address.class));
         p.setUser(AUTH.getUserDetails());
         p.setStatus(PropertyState.AVAILABLE);
         return modelMapper.map(repository.save(p), PropertyDto.class);

@@ -5,5 +5,5 @@ import com.waa.backend.dtos.AddressDto;
 
 
 public interface AddressService extends GenericCrudService<AddressDto, AddressDto, Long> {
-    Address createAndGetAddress(AddressDto addressDto);
+//    Address createAndGetAddress(AddressDto addressDto);
 }

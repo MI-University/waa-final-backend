@@ -15,15 +15,15 @@ public class AddressServiceImpl extends GenericCrudServiceImpl<Address, AddressD
         super(repository, modelMapperHelper, Address.class, AddressDto.class);
         this.repository = repository;
     }
-
-    /**
-     * @param addressDto
-     * @return Address
-     */
-    @Override
-    public Address createAndGetAddress(AddressDto addressDto) {
-        this.create(addressDto);
-        return repository.findById(addressDto.getId()).orElseThrow(() -> new RuntimeException("Unable to save the address"));
-    }
+//
+//    /**
+//     * @param addressDto
+//     * @return Address
+//     */
+//    @Override
+//    public Address createAndGetAddress(AddressDto addressDto) {
+//        this.create(addressDto);
+//        return repository.findById(addressDto.getId()).orElseThrow(() -> new RuntimeException("Unable to save the address"));
+//    }
 }
 
