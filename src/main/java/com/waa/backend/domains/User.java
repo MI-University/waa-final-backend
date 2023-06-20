@@ -34,7 +34,6 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @NotNull
     private Address address;
 
     @Override
