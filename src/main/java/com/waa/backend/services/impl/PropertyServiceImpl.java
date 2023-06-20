@@ -67,7 +67,7 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
 
     @Override
     public PropertyDto create(PropertyRequest propertyRequest) {
-        Address address = this.addressService.createAndGetAddress(propertyRequest.getAddressDto());
+        Address address = this.addressService.createAndGetAddress(propertyRequest.getAddress());
         Property p = modelMapper.map(propertyRequest, Property.class);
         p.setAddress(address);
         p.setUser(AUTH.getUserDetails());
