@@ -1,7 +1,7 @@
 package com.waa.backend.exceptions.handler;
 
-import com.aeontanvir.propertymanagementsystem.exceptions.ApiException;
-import com.aeontanvir.propertymanagementsystem.exceptions.ApiRequestException;
+import com.waa.backend.exceptions.ApiException;
+import com.waa.backend.exceptions.ApiRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
