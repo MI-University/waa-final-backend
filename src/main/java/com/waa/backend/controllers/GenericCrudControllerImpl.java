@@ -18,8 +18,8 @@ public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericC
     private String modelName;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<DTO>>> getAll() {
-        List<DTO> entities = service.getAll();
+    public ResponseEntity<ApiResponse<List<DTO>>> getAll(@ModelAttribute DTO filterData) {
+        List<DTO> entities = service.getAll(filterData);
         return ResponseEntity.ok(ApiResponse.success(this.modelName + " retrieved successfully.", entities));
     }
 
@@ -44,7 +44,7 @@ public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericC
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<DTO>> update(@PathVariable ID id, @RequestBody REQ entity) {
+    public ResponseEntity<ApiResponse<DTO>> update(@PathVariable ID id, @RequestBody REQ entity) throws Exception {
         DTO updatedEntity = service.update(entity, id);
         if (entity != null) {
             return ResponseEntity.ok(ApiResponse.success(this.modelName + " updated successfully.", updatedEntity));
@@ -54,7 +54,7 @@ public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericC
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable ID id) {
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable ID id) throws Exception {
         boolean deleted = service.delete(id);
         if (deleted) {
             return ResponseEntity.ok(ApiResponse.success(this.modelName + " deleted successfully.", null));

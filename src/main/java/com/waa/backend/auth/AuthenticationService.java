@@ -8,6 +8,9 @@ import com.waa.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +41,7 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .userId(user.getId())
                 .name(user.getName())
+                .role(user.getRole())
                 .isApproved(user.getIsApproved())
                 .build();
     }
@@ -54,6 +58,7 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .userId(user.getId())
                 .name(user.getName())
+                .role(user.getRole())
                 .isApproved(user.getIsApproved())
                 .build();
     }

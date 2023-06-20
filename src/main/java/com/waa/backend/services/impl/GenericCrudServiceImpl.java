@@ -18,7 +18,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
     private final Class<DTO> dtoClass;
 
 
-    public List<DTO> getAll() {
+    public List<DTO> getAll(DTO filterData) {
         List<E> entities = repository.findAll();
         return modelMapperHelper.convertToDtoList(entities, dtoClass);
     }
@@ -38,7 +38,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
     }
 
     @Override
-    public DTO update(REQ req, ID id) {
+    public DTO update(REQ req, ID id) throws Exception {
         E existingEntity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Entity not found with id: " + id));
 
@@ -54,7 +54,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
 
 
     @Override
-    public boolean delete(ID id) {
+    public boolean delete(ID id) throws Exception {
         E entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cost not found with id: " + id));
 
