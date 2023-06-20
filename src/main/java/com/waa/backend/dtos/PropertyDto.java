@@ -1,8 +1,6 @@
 package com.waa.backend.dtos;
 
 import com.waa.backend.domains.*;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,5 +25,5 @@ public class PropertyDto {
     private User user;
     private List<Offer> offers;
     private PropertyState status;
-    private List<BlobStorageInfo> images;
+    private String[]  images;
 }

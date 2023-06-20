@@ -1,5 +1,7 @@
 package com.waa.backend.domains;
 
+
+import com.waa.backend.converters.StringArrayConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -26,18 +28,24 @@ public class Property {
     Double area;
     @NotEmpty
     String title;
+
     @NotEmpty
     @Column(columnDefinition = "text")
     String description;
+
     @OneToOne(fetch = FetchType.LAZY)
     Address address;
+
     @ManyToOne(fetch = FetchType.LAZY)
     User user;
+
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
     List<Offer> offers;
+
     @Enumerated(EnumType.STRING)
     PropertyState status;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    List<BlobStorageInfo> images;
+//    @Column
+//    @Convert(converter = StringArrayConverter.class)
+//    private String[] images;
 }

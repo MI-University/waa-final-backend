@@ -25,9 +25,6 @@ public class Message {
     @NotNull
     @JsonBackReference(value="message-sender")
     User sender;
-    @OneToOne
-    @JsonBackReference(value="message-replyTo")
-    Message replyTo;
     @ManyToOne
     @JsonBackReference(value="message-property")
     Property property;
