@@ -82,14 +82,20 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
 
     @Override
     public PropertyDto update(PropertyRequest propertyRequest, Long id) throws Exception {
-        Property p = repository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
-        this.updateEntityFromRequest(propertyRequest, p);
-        p.setAddress(modelMapper.map(propertyRequest.getAddress(), Address.class));
-        p.setUser(AUTH.getUserDetails());
-        if (!Objects.equals(p.getUser().getId(), AUTH.getUserDetails().getId()) || propertyRequest.getPropertyState() != PropertyState.AVAILABLE) {
-            throw new Exception("Only owner can delete the properties with status 'AVAILABLE'");
+
+        // Fetch the existing Property entity from the database
+        Property existingProperty = repository.findById(id)
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+
+        // Map the fields from PropertyDto to Property entity
+        modelMapper.map(propertyRequest, existingProperty);
+
+        // Save the updated Property entity back to the database
+        existingProperty.setAddress(modelMapper.map(propertyRequest.getAddress(), Address.class));
+        if (!Objects.equals(existingProperty.getUser().getId(), AUTH.getUserDetails().getId())) {
+            throw new Exception("Only owner can delete the properties");
         }
-        return modelMapper.map(this.repository.save(p), PropertyDto.class);
+        return modelMapper.map(this.repository.save(existingProperty), PropertyDto.class);
 
     }
 

@@ -1,15 +1,16 @@
 package com.waa.backend.dtos;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.waa.backend.domains.Address;
-import com.waa.backend.domains.PropertyState;
-import com.waa.backend.domains.User;
 import com.waa.backend.deserializer.StringOrNumberToDoubleDeserializer;
 import com.waa.backend.deserializer.StringOrNumberToIntegerDeserializer;
+import com.waa.backend.domains.Message;
+import com.waa.backend.domains.PropertyState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -31,7 +32,7 @@ public class PropertyDto {
     private String description;
     private AddressDto address;
     private UserDto user;
-    //    private List<Offer> offers;
+    private List<MessageDto> offers;
     private PropertyState status;
-//    private String[]  images;
+    private String[] images;
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements GenericCrudService<REQ, DTO, ID> {
@@ -92,7 +93,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
                 }
             } catch (IllegalAccessException e) {
                 // Handle any reflection-related exceptions
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
     }

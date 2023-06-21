@@ -44,7 +44,8 @@ public class Property {
     @Enumerated(EnumType.STRING)
     PropertyState status;
 
-//    @Column
-//    @Convert(converter = StringArrayConverter.class)
-//    private String[] images;
+    @ElementCollection
+    @CollectionTable(name = "images")
+    @Column(name = "image")
+    private List<String> images;
 }
