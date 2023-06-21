@@ -1,7 +1,6 @@
 package com.waa.backend.domains;
 
 
-import com.waa.backend.converters.StringArrayConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

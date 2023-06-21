@@ -1,4 +1,4 @@
-package com.waa.backend.serializers;
+package com.waa.backend.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
