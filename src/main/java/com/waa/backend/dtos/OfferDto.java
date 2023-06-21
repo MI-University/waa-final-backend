@@ -1,24 +1,22 @@
 package com.waa.backend.dtos;
 
-import com.waa.backend.domains.User;
+import com.waa.backend.domains.OfferState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageDto {
+public class OfferDto {
     Long id;
-    String message;
-    User recipient;
-    User sender;
+    String details;
+    String createdOn;
+    String modifiedOn;
+    Double offerAmount;
     PropertyDto property;
-    LocalDate date;
-    LocalTime time;
+    UserDto customer;
+    OfferState status;
 }

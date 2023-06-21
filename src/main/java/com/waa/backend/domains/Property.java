@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Property {
+public class Property extends BaseDomain{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

@@ -95,6 +95,7 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
         if (!Objects.equals(existingProperty.getUser().getId(), AUTH.getUserDetails().getId())) {
             throw new Exception("Only owner can delete the properties");
         }
+
         return modelMapper.map(this.repository.save(existingProperty), PropertyDto.class);
 
     }

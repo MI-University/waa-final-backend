@@ -11,7 +11,7 @@ import java.time.LocalTime;
 
 @Entity
 @Data
-public class Message {
+public class Message extends BaseDomain{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

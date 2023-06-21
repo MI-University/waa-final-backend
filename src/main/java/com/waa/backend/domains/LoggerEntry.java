@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class LoggerEntry {
+public class LoggerEntry extends BaseDomain{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

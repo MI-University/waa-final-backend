@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Address {
+public class Address extends BaseDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
