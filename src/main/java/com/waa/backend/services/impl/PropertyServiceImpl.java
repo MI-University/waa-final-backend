@@ -62,6 +62,9 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
         if (filterDataDto.getNoOfBedrooms() != 0) {
             predicates.add(cb.greaterThanOrEqualTo(property.get("noOfBedrooms"), filterDataDto.getNoOfBedrooms()));
         }
+        if (filterDataDto.isCAuth()) {
+            predicates.add(cb.equal(property.get("user").get("id"), AUTH.getUserDetails().getId()));
+        }
         cq.where(predicates.toArray(new Predicate[0]));
 
         return em.createQuery(cq).getResultList().stream().map(x -> modelMapper.map(x, PropertyDto.class)).toList();

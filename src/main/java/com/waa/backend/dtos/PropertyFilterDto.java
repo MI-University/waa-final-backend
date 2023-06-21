@@ -15,4 +15,5 @@ public class PropertyFilterDto {
     private Long minPrice;
     private String city;
     private int noOfBedrooms;
+    private boolean cAuth;
 }
