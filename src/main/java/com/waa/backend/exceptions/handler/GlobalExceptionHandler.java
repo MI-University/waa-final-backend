@@ -1,4 +1,4 @@
-package com.waa.backend.v1;
+package com.waa.backend.exceptions.handler;
 
 import com.waa.backend.apiresponse.ApiResponse;
 import org.springframework.http.HttpStatus;
