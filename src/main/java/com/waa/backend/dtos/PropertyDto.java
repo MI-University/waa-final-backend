@@ -29,8 +29,8 @@ public class PropertyDto {
     private Double area;
     private String title;
     private String description;
-    private Address address;
-    private User user;
+    private AddressDto address;
+    private UserDto user;
     //    private List<Offer> offers;
     private PropertyState status;
 //    private String[]  images;
