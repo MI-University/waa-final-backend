@@ -2,7 +2,6 @@ package com.waa.backend.controllers;
 
 import com.waa.backend.apiresponse.ApiResponse;
 import com.waa.backend.dtos.MessageDto;
-import com.waa.backend.dtos.PropertyDto;
 import com.waa.backend.services.MessageService;
 import com.waa.backend.services.PropertyService;
 import com.waa.backend.services.UserService;
@@ -51,14 +50,14 @@ public class MessageController {
     @GetMapping("/user/{userId}/property/{propertyId}")
     ResponseEntity<ApiResponse<List<MessageDto>>> findAllByUserProperty(@PathVariable Optional<Long> propertyId) {
         Long paramPropertyId = propertyId.orElse(null);
-        PropertyDto propertyDto = null;
         if (paramPropertyId != null) {
-            propertyDto = propertyService.getById(paramPropertyId);
-        } else {
-            return getMessagesForUser();
+            return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.",
+                    messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(
+                            AUTH.getUserDetails(),
+                            propertyService.getById(paramPropertyId))
+            ));
         }
-        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(AUTH.getUserDetails(), propertyDto)));
-
+        return getMessagesForUser();
     }
 
     @PostMapping()
