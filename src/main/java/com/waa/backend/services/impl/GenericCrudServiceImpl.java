@@ -61,7 +61,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
         return true;
     }
 
-    private void updateEntityFromRequest(REQ req, E entity) {
+    public void updateEntityFromRequest(REQ req, E entity) {
         // Retrieve the list of declared fields in the request object class
         Field[] requestFields = req.getClass().getDeclaredFields();
 

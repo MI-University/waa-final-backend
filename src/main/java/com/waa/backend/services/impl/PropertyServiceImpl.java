@@ -19,6 +19,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,14 +75,14 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
         p.setUser(AUTH.getUserDetails());
         p.setStatus(PropertyState.AVAILABLE);
         return modelMapper.map(repository.save(p), PropertyDto.class);
-
     }
 
     @Override
     public PropertyDto update(PropertyRequest propertyRequest, Long id) throws Exception {
-
-        Property p = modelMapper.map(propertyRequest, Property.class);
-
+        Property p = repository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
+        this.updateEntityFromRequest(propertyRequest, p);
+        p.setAddress(modelMapper.map(propertyRequest.getAddress(), Address.class));
+        p.setUser(AUTH.getUserDetails());
         if (!Objects.equals(p.getUser().getId(), AUTH.getUserDetails().getId()) || propertyRequest.getPropertyState() != PropertyState.AVAILABLE) {
             throw new Exception("Only owner can delete the properties with status 'AVAILABLE'");
         }

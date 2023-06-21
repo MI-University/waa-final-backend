@@ -1,5 +1,6 @@
 package com.waa.backend.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     @NotNull
     private String email;
+
+    @JsonIgnore
     private String password;
     private boolean approved;
     @Enumerated(EnumType.STRING)
