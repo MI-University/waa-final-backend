@@ -10,7 +10,6 @@ import com.waa.backend.services.UserService;
 import com.waa.backend.util.AUTH;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +33,12 @@ public class MessageController {
     ModelMapper modelMapper;
 
     @GetMapping
-    ResponseEntity<List<MessageDto>> findAll() {
-        return findAllByUser(Optional.empty());
+    ResponseEntity<ApiResponse<List<MessageDto>>> findAll() {
+        return getMessagesForUser(Optional.empty());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<MessageDto>> getPropertyById(@PathVariable("id") Long id) {
+    public ResponseEntity<ApiResponse<MessageDto>> getMessagesById(@PathVariable("id") Long id) {
         MessageDto message = this.messageService.getById(id);
         if (Objects.equals(message.getRecipient().getId(), AUTH.getUserDetails().getId()) || Objects.equals(message.getSender().getId(), AUTH.getUserDetails().getId()))
             return ResponseEntity.ok(ApiResponse.success("Offer canceled successfully.", message));
@@ -47,29 +46,28 @@ public class MessageController {
     }
 
     @GetMapping("/user/{id}")
-    ResponseEntity<List<MessageDto>> findAllByUser(@PathVariable Optional<Long> userId) {
+    ResponseEntity<ApiResponse<List<MessageDto>>> getMessagesForUser(@PathVariable Optional<Long> userId) {
         User user = getUser(userId);
-        return ResponseEntity.ok(messageService.getMessagesForUserOrderByDateTimeDesc(user));
+        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserOrderByDateTimeDesc(user)));
     }
 
     @GetMapping("/user/{userId}/property/{propertyId}")
-    ResponseEntity<List<MessageDto>> findAllByUserProperty(@PathVariable Optional<Long> userId, @PathVariable Optional<Long> propertyId) {
+    ResponseEntity<ApiResponse<List<MessageDto>>> findAllByUserProperty(@PathVariable Optional<Long> userId, @PathVariable Optional<Long> propertyId) {
         Long paramPropertyId = propertyId.orElse(null);
         PropertyDto propertyDto = null;
         if (paramPropertyId != null) {
-            //Only admins can read all messages
             propertyDto = propertyService.getById(paramPropertyId);
         } else {
-            return findAllByUser(userId);
+            return getMessagesForUser(userId);
         }
-        return ResponseEntity.ok(messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(getUser(userId), propertyDto));
+        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(getUser(userId), propertyDto)));
+
     }
 
     @PostMapping()
-    ResponseEntity<MessageDto> addMessage(@RequestBody MessageDto messageDto) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(messageService.postMessage(messageDto, AUTH.getUserDetails()));
+    ResponseEntity<ApiResponse<MessageDto>> addMessage(@RequestBody MessageDto messageDto) {
+        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.postMessage(messageDto, AUTH.getUserDetails())));
+
     }
 
     private User getUser(Optional<Long> userId) {
