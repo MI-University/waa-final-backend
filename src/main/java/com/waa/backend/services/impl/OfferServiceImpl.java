@@ -175,4 +175,12 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
         }
         return null;
     }
+
+    /**
+     * @param offerId
+     */
+    @Override
+    public void setALlOfferCancelledNotId(Long offerId, Long propertyId) {
+        this.offerRepository.setALlOfferCancelledNotId(offerId, propertyId);
+    }
 }

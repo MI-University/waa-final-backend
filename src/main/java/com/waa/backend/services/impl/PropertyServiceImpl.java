@@ -1,14 +1,17 @@
 package com.waa.backend.services.impl;
 
 import com.waa.backend.domains.Address;
+import com.waa.backend.domains.OfferState;
 import com.waa.backend.domains.Property;
 import com.waa.backend.domains.PropertyState;
 import com.waa.backend.dtos.AddressDto;
+import com.waa.backend.dtos.OfferDto;
 import com.waa.backend.dtos.PropertyDto;
 import com.waa.backend.dtos.PropertyFilterDto;
 import com.waa.backend.repositories.PropertyRepository;
 import com.waa.backend.request.PropertyRequest;
 import com.waa.backend.services.AddressService;
+import com.waa.backend.services.OfferService;
 import com.waa.backend.services.PropertyService;
 import com.waa.backend.util.AUTH;
 import com.waa.backend.util.ModelMapperHelper;
@@ -29,6 +32,8 @@ import java.util.Objects;
 @Service
 public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, PropertyRequest, PropertyDto, Long> implements PropertyService {
     private final PropertyRepository repository;
+    @Autowired
+    private OfferService offerService;
 
     @Autowired
     private AddressService addressService;
@@ -70,6 +75,28 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
         return em.createQuery(cq).getResultList().stream().map(x -> modelMapper.map(x, PropertyDto.class)).toList();
     }
 
+    /**
+     * @param id
+     * @param offerId
+     * @return
+     */
+    @Override
+    public PropertyDto soldProperty(Long propertyId, Long offerId) throws ChangeSetPersister.NotFoundException {
+        Property existingProperty = repository.findById(propertyId)
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        OfferDto offerDto = this.offerService.getById(offerId);
+        if (
+                existingProperty.getStatus() == PropertyState.CONTINGENT
+                        && offerDto.getStatus() == OfferState.ACCEPTED
+                        && Objects.equals(offerDto.getProperty().getId(), offerId)
+                        && Objects.equals(existingProperty.getUser().getId(), AUTH.getUserDetails().getId())
+        ) {
+            existingProperty.setStatus(PropertyState.SOLD);
+            this.offerService.setALlOfferCancelledNotId(offerId, propertyId);
+        }
+        return this.modelMapper.map(this.repository.save(existingProperty), PropertyDto.class);
+    }
+
     @Override
     public PropertyDto create(PropertyRequest propertyRequest) throws Exception {
         AddressDto address = this.addressService.create(propertyRequest.getAddress());
@@ -109,4 +136,6 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
         this.repository.delete(property);
         return true;
     }
+
+
 }

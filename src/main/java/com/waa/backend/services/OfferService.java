@@ -18,4 +18,6 @@ public interface OfferService extends GenericCrudService<OfferRequest, OfferDto,
     OfferDto cancelByOwner(Long offerId) throws Exception;
 
     List<OfferDto> offerGetByPropertyId(Long id);
+
+    void setALlOfferCancelledNotId(Long offerId, Long propertyId);
 }

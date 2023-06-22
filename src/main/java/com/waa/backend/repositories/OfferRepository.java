@@ -27,5 +27,8 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     @Query("SELECT o FROM Offer o WHERE o.property.id = :propertyId and o.property.user.id = :userId")
     List<Offer> getByPropertyIdAndUserId(@Param("propertyId") Long propertyId, @Param("userId") Long userId);
 
+
+    @Query("Update Offer offer set offer.status = 'CANCELLED' where offer.id != :offerId and offer.property.id = :propertyId")
+    List<Offer> setALlOfferCancelledNotId(@Param("offerId") Long offerId, @Param("propertyId") Long propertyId);
 }
 
