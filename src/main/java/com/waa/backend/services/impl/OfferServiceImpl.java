@@ -106,7 +106,7 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
                     property.getStatus() == PropertyState.AVAILABLE)) {
                 throw new Exception("Offers are not accepted.");
             }
-            offer.setStatus(OfferState.PENDING);
+            offer.setStatus(OfferState.ACCEPTED);
             property.setStatus(PropertyState.PENDING);
         } else {
             throw new Exception("You are not authorized");
@@ -122,7 +122,7 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
         Property property = propertyRepository.findById(offer.getProperty().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Property not found"));
         if (Objects.equals(offer.getUser().getId(), AUTH.getUserDetails().getId())) {
-            if (offer.getStatus() == OfferState.PENDING && property.getStatus() == PropertyState.PENDING) {
+            if (offer.getStatus() == OfferState.ACCEPTED && property.getStatus() == PropertyState.PENDING) {
                 offer.setStatus(OfferState.ACCEPTED);
                 property.setStatus(PropertyState.CONTINGENT);
             } else {
