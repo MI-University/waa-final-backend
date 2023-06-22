@@ -32,7 +32,7 @@ public abstract class GenericCrudServiceImpl<E, REQ, DTO, ID> implements Generic
     }
 
     @Override
-    public DTO create(REQ req) {
+    public DTO create(REQ req) throws Exception {
         E entity = modelMapperHelper.convertToEntity(req, eClass);
         E saveEntity = repository.save(entity);
         return modelMapperHelper.convertToDto(saveEntity, dtoClass);

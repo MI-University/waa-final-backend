@@ -3,6 +3,7 @@ package com.waa.backend.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,7 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -28,13 +30,15 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
-                .permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
-                .permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/swagger-resources/*"))
-                .permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
+                .requestMatchers(
+                        new AntPathRequestMatcher("/api/v1/properties", HttpMethod.GET.name()),
+                        new AntPathRequestMatcher("/api/v1/properties/{id}", HttpMethod.GET.name()),
+                        new AntPathRequestMatcher("/swagger-ui/**"),
+                        new AntPathRequestMatcher("/swagger-resources/*"),
+                        new AntPathRequestMatcher("/swagger-resources/*"),
+                        new AntPathRequestMatcher("/v3/api-docs/**"),
+                        new AntPathRequestMatcher("/h2-console/**")
+                )
                 .permitAll()
                 .anyRequest()
                 .authenticated()

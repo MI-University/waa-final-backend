@@ -34,7 +34,7 @@ public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericC
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<DTO>> create(@RequestBody REQ entity) {
+    public ResponseEntity<ApiResponse<DTO>> create(@RequestBody REQ entity) throws Exception {
         DTO createdEntity = service.create(entity);
         if (entity != null) {
             return ResponseEntity.ok(ApiResponse.success(this.modelName + " created successfully.", createdEntity));

@@ -9,9 +9,11 @@ import com.waa.backend.services.MessageService;
 import com.waa.backend.services.OfferService;
 import com.waa.backend.services.UserService;
 import com.waa.backend.util.AUTH;
+import com.waa.backend.util.ModelMapperHelper;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class OfferServiceImpl implements OfferService {
+public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest, OfferDto, Long> implements OfferService {
 
     @Autowired
     private OfferRepository offerRepository;
@@ -35,12 +37,18 @@ public class OfferServiceImpl implements OfferService {
     @Autowired
     MessageService messageService;
 
+    public OfferServiceImpl(JpaRepository<Offer, Long> repository, ModelMapperHelper<Offer, OfferDto> modelMapperHelper) {
+        super(repository, modelMapperHelper, Offer.class, OfferDto.class);
+    }
+
+
     /**
+     * @param filterData
      * @return
      */
     @Override
-    public List<OfferDto> findCurrentOffersByCustomerId() {
-        return offerRepository.findByOwnerId(AUTH.getUserDetails().getId()).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
+    public List<OfferDto> getAll(OfferDto filterData) {
+        return offerRepository.findOffersByUserId(AUTH.getUserDetails().getId()).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
     }
 
     @Override
@@ -145,5 +153,14 @@ public class OfferServiceImpl implements OfferService {
         offerRepository.save(offer);
         propertyRepository.save(property);
         return this.modelMapper.map(offer, OfferDto.class);
+    }
+
+    /**
+     * @param id 
+     * @return
+     */
+    @Override
+    public List<OfferDto> offerGetByPropertyId(Long id) {
+        return offerRepository.getByPropertyIdAndUserId(id, AUTH.getUserDetails().getId());
     }
 }

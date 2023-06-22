@@ -10,7 +10,7 @@ public interface GenericCrudController<REQ, DTO, ID> {
 
     ResponseEntity<ApiResponse<DTO>> getById(ID id);
 
-    ResponseEntity<ApiResponse<DTO>> create(REQ entity);
+    ResponseEntity<ApiResponse<DTO>> create(REQ entity) throws Exception;
 
     ResponseEntity<ApiResponse<DTO>> update(ID id, REQ entity) throws Exception;
 

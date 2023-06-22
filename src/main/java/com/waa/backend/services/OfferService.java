@@ -6,10 +6,7 @@ import com.waa.backend.request.OfferRequest;
 
 import java.util.List;
 
-public interface OfferService {
-    List<OfferDto> findCurrentOffersByCustomerId();
-
-    OfferDto create(OfferRequest offerRequest) throws Exception;
+public interface OfferService extends GenericCrudService<OfferRequest, OfferDto, Long>{
 
     OfferDto update(Long id, OfferRequest offerRequest) throws Exception;
 
@@ -19,4 +16,6 @@ public interface OfferService {
 
 
     OfferDto cancelByOwner(Long offerId) throws Exception;
+
+    List<OfferDto> offerGetByPropertyId(Long id);
 }
