@@ -12,8 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -57,17 +55,15 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageDto postMessage(MessageDto messageDto, User user) {
         Message message = modelMapper.map(messageDto, Message.class);
-        if (messageDto.getRecipient() != null && messageDto.getRecipient().getId() != null) {
-            User recipient = this.modelMapper.map(userService.getById(messageDto.getRecipient().getId()), User.class);
+        if (messageDto.getRecipientId() != null) {
+            User recipient = this.modelMapper.map(userService.getById(messageDto.getRecipientId()), User.class);
             message.setRecipient(recipient);
         }
-        if (messageDto.getProperty() != null && messageDto.getProperty().getId() != null) {
-            Property property = this.modelMapper.map(propertyService.getById(messageDto.getProperty().getId()), Property.class);
+        if (messageDto.getPropertyId() != null) {
+            Property property = this.modelMapper.map(propertyService.getById(messageDto.getPropertyId()), Property.class);
             message.setProperty(property);
             message.setRecipient(property.getUser());
         }
-        message.setDate(LocalDate.now());
-        message.setTime(LocalTime.now());
         message.setSender(user);
         return modelMapper.map(messageRepository.save(message), MessageDto.class);
     }

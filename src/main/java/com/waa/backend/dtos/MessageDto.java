@@ -16,9 +16,8 @@ import java.time.LocalTime;
 public class MessageDto {
     Long id;
     String message;
-    User recipient;
-    User sender;
-    PropertyDto property;
-    LocalDate date;
-    LocalTime time;
+    Long recipientId;
+    Long senderId;
+    Long propertyId;
+    LocalDate createdOn;
 }

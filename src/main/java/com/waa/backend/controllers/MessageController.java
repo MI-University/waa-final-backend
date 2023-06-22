@@ -26,7 +26,7 @@ public class MessageController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<MessageDto>> getMessagesById(@PathVariable("id") Long id) {
         MessageDto message = this.messageService.getById(id);
-        if (Objects.equals(message.getRecipient().getId(), AUTH.getUserDetails().getId()) || Objects.equals(message.getSender().getId(), AUTH.getUserDetails().getId()))
+        if (Objects.equals(message.getRecipientId(), AUTH.getUserDetails().getId()) || Objects.equals(message.getSenderId(), AUTH.getUserDetails().getId()))
             return ResponseEntity.ok(ApiResponse.success("Offer canceled successfully.", message));
         return ResponseEntity.ok(ApiResponse.error("Message Not Found"));
     }

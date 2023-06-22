@@ -6,12 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Entity
 @Data
-public class Message extends BaseDomain{
+public class Message extends BaseDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -19,15 +16,13 @@ public class Message extends BaseDomain{
     String message;
     @OneToOne
     @NotNull
-    @JsonBackReference(value="message-recipient")
+    @JsonBackReference(value = "message-recipient")
     User recipient;
     @OneToOne
     @NotNull
-    @JsonBackReference(value="message-sender")
+    @JsonBackReference(value = "message-sender")
     User sender;
     @ManyToOne
-    @JsonBackReference(value="message-property")
+    @JsonBackReference(value = "message-property")
     Property property;
-    LocalDate date;
-    LocalTime time;
 }
