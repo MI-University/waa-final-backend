@@ -48,7 +48,12 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
      */
     @Override
     public List<OfferDto> getAll(OfferDto filterData) {
-        return offerRepository.findOffersByUserId(AUTH.getUserDetails().getId()).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
+        if (AUTH.getUserDetails().getRole() == Role.CUSTOMER) {
+            return offerRepository.findOffersByUserId(AUTH.getUserDetails().getId()).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
+        } else {
+            return offerRepository.findOffersByOwnerId(AUTH.getUserDetails().getId()).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
+        }
+
     }
 
     @Override
@@ -156,11 +161,14 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
     }
 
     /**
-     * @param id
+     * @param propertyId
      * @return
      */
     @Override
-    public List<OfferDto> offerGetByPropertyId(Long id) {
-        return offerRepository.getByPropertyIdAndUserId(id, AUTH.getUserDetails().getId()).stream().map(o -> this.modelMapper.map(o, OfferDto.class)).toList();
+    public List<OfferDto> offerGetByPropertyId(Long propertyId) {
+        if (AUTH.getUserDetails().getRole() == Role.ADMIN) {
+            return offerRepository.findOffersByPropertyId(propertyId).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
+        }
+        return null;
     }
 }
