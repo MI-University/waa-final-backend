@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/api/v1/messages")
 public class MessageController {
     @Autowired
     MessageService messageService;
