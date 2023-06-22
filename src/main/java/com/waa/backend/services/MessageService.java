@@ -6,7 +6,6 @@ import com.waa.backend.dtos.MessageDto;
 import java.util.List;
 
 public interface MessageService {
-    List<MessageDto> getAll();
     MessageDto getById(Long id);
     List<MessageDto> getMessagesForUserOrderByDateTimeDesc(User user);
     List<MessageDto> getMessagesForUserForPropertyOrderByDateTimeDesc(User user, Long propertyDto);

@@ -31,11 +31,6 @@ public class MessageServiceImpl implements MessageService {
     ModelMapper modelMapper;
 
     @Override
-    public List<MessageDto> getAll() {
-        return messageRepository.findAll().stream().map(x -> modelMapper.map(x, MessageDto.class)).toList();
-    }
-
-    @Override
     public List<MessageDto> getMessagesForUserOrderByDateTimeDesc(User user) {
         return messageRepository.findMessagesByRecipientIdOrderByDateDescTimeDesc(user.getId()).stream().map(x -> modelMapper.map(x, MessageDto.class)).toList();
     }
