@@ -3,10 +3,7 @@ package com.waa.backend.controllers;
 import com.waa.backend.apiresponse.ApiResponse;
 import com.waa.backend.dtos.MessageDto;
 import com.waa.backend.services.MessageService;
-import com.waa.backend.services.PropertyService;
-import com.waa.backend.services.UserService;
 import com.waa.backend.util.AUTH;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +17,6 @@ import java.util.Optional;
 public class MessageController {
     @Autowired
     MessageService messageService;
-    @Autowired
-    PropertyService propertyService;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    ModelMapper modelMapper;
 
     @GetMapping
     ResponseEntity<ApiResponse<List<MessageDto>>> findAll() {
@@ -53,8 +42,7 @@ public class MessageController {
         if (paramPropertyId != null) {
             return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.",
                     messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(
-                            AUTH.getUserDetails(),
-                            propertyService.getById(paramPropertyId))
+                            AUTH.getUserDetails(),paramPropertyId)
             ));
         }
         return getMessagesForUser();

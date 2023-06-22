@@ -76,7 +76,7 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
     }
 
     /**
-     * @param id
+     * @param propertyId
      * @param offerId
      * @return
      */
@@ -92,7 +92,7 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
                         && Objects.equals(existingProperty.getUser().getId(), AUTH.getUserDetails().getId())
         ) {
             existingProperty.setStatus(PropertyState.SOLD);
-            this.offerService.setALlOfferCancelledNotId(offerId, propertyId);
+//            this.offerService.setAllOfferCancelledNotId(OfferState.CANCELLED, offerId, propertyId);
         }
         return this.modelMapper.map(this.repository.save(existingProperty), PropertyDto.class);
     }
@@ -130,7 +130,7 @@ public class PropertyServiceImpl extends GenericCrudServiceImpl<Property, Proper
     @Override
     public boolean delete(Long id) throws Exception {
         Property property = this.repository.findById(id).orElseThrow();
-        if (property.getUser().getId() != AUTH.getUserDetails().getId() || property.getStatus() != PropertyState.AVAILABLE) {
+        if (!Objects.equals(property.getUser().getId(), AUTH.getUserDetails().getId()) || property.getStatus() != PropertyState.AVAILABLE) {
             throw new Exception("Only owner can delete the properties with status 'AVAILABLE'");
         }
         this.repository.delete(property);

@@ -1,6 +1,7 @@
 package com.waa.backend.services;
 
 
+import com.waa.backend.domains.OfferState;
 import com.waa.backend.dtos.OfferDto;
 import com.waa.backend.request.OfferRequest;
 
@@ -19,5 +20,5 @@ public interface OfferService extends GenericCrudService<OfferRequest, OfferDto,
 
     List<OfferDto> offerGetByPropertyId(Long id);
 
-    void setALlOfferCancelledNotId(Long offerId, Long propertyId);
+    void setAllOfferCancelledNotId(OfferState offerStatus, Long offerId, Long propertyId);
 }

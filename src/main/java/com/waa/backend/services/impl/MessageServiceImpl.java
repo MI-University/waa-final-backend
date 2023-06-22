@@ -4,7 +4,6 @@ import com.waa.backend.domains.Message;
 import com.waa.backend.domains.Property;
 import com.waa.backend.domains.User;
 import com.waa.backend.dtos.MessageDto;
-import com.waa.backend.dtos.PropertyDto;
 import com.waa.backend.repositories.MessageRepository;
 import com.waa.backend.services.MessageService;
 import com.waa.backend.services.PropertyService;
@@ -21,8 +20,12 @@ import java.util.List;
 public class MessageServiceImpl implements MessageService {
     @Autowired
     MessageRepository messageRepository;
+
+
     @Autowired
     UserService userService;
+
+
     @Autowired
     PropertyService propertyService;
 
@@ -40,8 +43,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageDto> getMessagesForUserForPropertyOrderByDateTimeDesc(User user, PropertyDto propertyDto) {
-        return messageRepository.findMessagesByRecipientIdAndPropertyIdOrderByDateDescTimeDesc(user.getId(), propertyDto.getId()).stream().map(x -> modelMapper.map(x, MessageDto.class)).toList();
+    public List<MessageDto> getMessagesForUserForPropertyOrderByDateTimeDesc(User user, Long propertyId) {
+        return messageRepository.findMessagesByRecipientIdAndPropertyIdOrderByDateDescTimeDesc(
+                user.getId(), propertyId).stream().map(x -> modelMapper.map(x, MessageDto.class)).toList();
     }
 
     @Override
