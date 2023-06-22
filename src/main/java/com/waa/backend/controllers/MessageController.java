@@ -2,6 +2,7 @@ package com.waa.backend.controllers;
 
 import com.waa.backend.apiresponse.ApiResponse;
 import com.waa.backend.dtos.MessageDto;
+import com.waa.backend.request.MessageRequest;
 import com.waa.backend.services.MessageService;
 import com.waa.backend.util.AUTH;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class MessageController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<MessageDto>> getMessagesById(@PathVariable("id") Long id) {
         MessageDto message = this.messageService.getById(id);
-        if (Objects.equals(message.getRecipientId(), AUTH.getUserDetails().getId()) || Objects.equals(message.getSenderId(), AUTH.getUserDetails().getId()))
+        if (Objects.equals(message.getRecipient().getId(), AUTH.getUserDetails().getId()) || Objects.equals(message.getSender().getId(), AUTH.getUserDetails().getId()))
             return ResponseEntity.ok(ApiResponse.success("Offer canceled successfully.", message));
         return ResponseEntity.ok(ApiResponse.error("Message Not Found"));
     }
@@ -49,8 +50,8 @@ public class MessageController {
     }
 
     @PostMapping()
-    ResponseEntity<ApiResponse<MessageDto>> addMessage(@RequestBody MessageDto messageDto) {
-        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.postMessage(messageDto, AUTH.getUserDetails())));
+    ResponseEntity<ApiResponse<MessageDto>> addMessage(@RequestBody MessageRequest messageRequest) {
+        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.postMessage(messageRequest, AUTH.getUserDetails())));
 
     }
 }

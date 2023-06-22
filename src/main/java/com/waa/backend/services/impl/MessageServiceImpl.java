@@ -5,6 +5,7 @@ import com.waa.backend.domains.Property;
 import com.waa.backend.domains.User;
 import com.waa.backend.dtos.MessageDto;
 import com.waa.backend.repositories.MessageRepository;
+import com.waa.backend.request.MessageRequest;
 import com.waa.backend.services.MessageService;
 import com.waa.backend.services.PropertyService;
 import com.waa.backend.services.UserService;
@@ -48,14 +49,14 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public MessageDto postMessage(MessageDto messageDto, User user) {
-        Message message = modelMapper.map(messageDto, Message.class);
-        if (messageDto.getRecipientId() != null) {
-            User recipient = this.modelMapper.map(userService.getById(messageDto.getRecipientId()), User.class);
+    public MessageDto postMessage(MessageRequest messageRequest, User user) {
+        Message message = modelMapper.map(messageRequest, Message.class);
+        if (messageRequest.getRecipientId() != null) {
+            User recipient = this.modelMapper.map(userService.getById(messageRequest.getRecipientId()), User.class);
             message.setRecipient(recipient);
         }
-        if (messageDto.getPropertyId() != null) {
-            Property property = this.modelMapper.map(propertyService.getById(messageDto.getPropertyId()), Property.class);
+        if (messageRequest.getPropertyId() != null) {
+            Property property = this.modelMapper.map(propertyService.getById(messageRequest.getPropertyId()), Property.class);
             message.setProperty(property);
             message.setRecipient(property.getUser());
         }
