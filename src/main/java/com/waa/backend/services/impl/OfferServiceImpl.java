@@ -156,11 +156,11 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
     }
 
     /**
-     * @param id 
+     * @param id
      * @return
      */
     @Override
     public List<OfferDto> offerGetByPropertyId(Long id) {
-        return offerRepository.getByPropertyIdAndUserId(id, AUTH.getUserDetails().getId());
+        return offerRepository.getByPropertyIdAndUserId(id, AUTH.getUserDetails().getId()).stream().map(o -> this.modelMapper.map(o, OfferDto.class)).toList();
     }
 }
