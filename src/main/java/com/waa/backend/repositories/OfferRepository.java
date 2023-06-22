@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long> {
-    @Query("SELECT o FROM Offer o WHERE o.user.id =: userId")
+    @Query("SELECT o FROM Offer o WHERE o.user.id = :userId")
     List<Offer> findOffersByUserId(@Param("userId") Long userId);
 
     @Query("SELECT o FROM Offer o WHERE o.property.user.id = :userId")

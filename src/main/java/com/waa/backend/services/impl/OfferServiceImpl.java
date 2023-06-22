@@ -49,7 +49,9 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
     @Override
     public List<OfferDto> getAll(OfferDto filterData) {
         if (AUTH.getUserDetails().getRole() == Role.CUSTOMER) {
-            return offerRepository.findOffersByUserId(AUTH.getUserDetails().getId()).stream().map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
+            return offerRepository.findOffersByUserId(AUTH.getUserDetails().getId())
+                    .stream()
+                    .map(offer -> this.modelMapper.map(offer, OfferDto.class)).toList();
         } else if (AUTH.getUserDetails().getRole() == Role.OWNER) {
             return offerRepository.findOffersByOwnerId(AUTH.getUserDetails().getId()).stream().map(
                     offer -> this.modelMapper.map(offer, OfferDto.class)
