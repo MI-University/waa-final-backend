@@ -2,6 +2,7 @@ package com.waa.backend.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,15 +25,20 @@ public class User extends BaseDomain implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String name;
+
     @Column(unique = true)
     @NotNull
+    @Email
     private String email;
 
     @JsonIgnore
     private String password;
+
     private boolean approved;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

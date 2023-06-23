@@ -1,6 +1,10 @@
-package com.waa.backend.auth;
+package com.waa.backend.controllers;
 
 import com.waa.backend.apiresponse.ApiResponse;
+import com.waa.backend.request.AuthenticationRequest;
+import com.waa.backend.responses.AuthenticationResponse;
+import com.waa.backend.services.AuthenticationService;
+import com.waa.backend.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

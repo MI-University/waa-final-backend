@@ -2,6 +2,7 @@ package com.waa.backend.controllers;
 
 import com.waa.backend.apiresponse.ApiResponse;
 import com.waa.backend.services.GenericCrudService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericC
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<DTO>> create(@RequestBody REQ entity) throws Exception {
+    public ResponseEntity<ApiResponse<DTO>> create(@Valid @RequestBody REQ entity) throws Exception {
         DTO createdEntity = service.create(entity);
         if (entity != null) {
             return ResponseEntity.ok(ApiResponse.success(this.modelName + " created successfully.", createdEntity));
@@ -44,7 +45,7 @@ public abstract class GenericCrudControllerImpl<REQ, DTO, ID, S extends GenericC
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<DTO>> update(@PathVariable ID id, @RequestBody REQ entity) throws Exception {
+    public ResponseEntity<ApiResponse<DTO>> update(@Valid @PathVariable ID id, @RequestBody REQ entity) throws Exception {
         DTO updatedEntity = service.update(entity, id);
         if (entity != null) {
             return ResponseEntity.ok(ApiResponse.success(this.modelName + " updated successfully.", updatedEntity));

@@ -37,6 +37,9 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
     @Autowired
     MessageService messageService;
 
+    @Autowired
+    NotificationServiceImpl notificationService;
+
     public OfferServiceImpl(JpaRepository<Offer, Long> repository, ModelMapperHelper<Offer, OfferDto> modelMapperHelper) {
         super(repository, modelMapperHelper, Offer.class, OfferDto.class);
     }
@@ -112,6 +115,7 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
             throw new Exception("You are not authorized");
         }
         offerRepository.save(offer);
+        this.notificationService.sentEmail(null);//@todo future we will sent the email from here
         return this.modelMapper.map(offer, OfferDto.class);
     }
 
@@ -134,6 +138,7 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
 
         offerRepository.save(offer);
         propertyRepository.save(property);
+        this.notificationService.sentEmail(null);//@todo future we will sent the email from here
         return this.modelMapper.map(offer, OfferDto.class);
     }
 
@@ -161,6 +166,7 @@ public class OfferServiceImpl extends GenericCrudServiceImpl<Offer, OfferRequest
 
         offerRepository.save(offer);
         propertyRepository.save(property);
+        this.notificationService.sentEmail(null);//@todo future we will sent the email from here
         return this.modelMapper.map(offer, OfferDto.class);
     }
 

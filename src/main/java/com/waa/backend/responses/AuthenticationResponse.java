@@ -1,7 +1,6 @@
-package com.waa.backend.dtos;
+package com.waa.backend.responses;
 
 import com.waa.backend.domains.Role;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,13 +8,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-
-    @Email(message = "Invalid email format")
+@NoArgsConstructor
+public class AuthenticationResponse {
+    private String token;
     private String email;
-    private Long id;
+    private Long userId;
     private String name;
     private Role role;
     private boolean approved;

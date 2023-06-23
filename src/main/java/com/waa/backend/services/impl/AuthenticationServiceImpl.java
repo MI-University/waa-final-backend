@@ -1,22 +1,23 @@
-package com.waa.backend.auth;
+package com.waa.backend.services.impl;
 
 
 import com.waa.backend.config.JwtService;
 import com.waa.backend.domains.Role;
 import com.waa.backend.domains.User;
 import com.waa.backend.repositories.UserRepository;
+import com.waa.backend.request.AuthenticationRequest;
+import com.waa.backend.request.RegisterRequest;
+import com.waa.backend.responses.AuthenticationResponse;
+import com.waa.backend.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

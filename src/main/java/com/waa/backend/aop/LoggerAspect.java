@@ -5,12 +5,8 @@ import com.waa.backend.services.LoggerService;
 import com.waa.backend.util.AUTH;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-
 
 @Aspect
 @Component
