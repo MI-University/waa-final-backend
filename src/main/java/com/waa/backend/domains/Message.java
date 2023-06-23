@@ -14,14 +14,17 @@ public class Message extends BaseDomain {
     Long id;
     @NotEmpty
     String message;
+
     @OneToOne
     @NotNull
     @JsonBackReference(value = "message-recipient")
     User recipient;
+
     @OneToOne
     @NotNull
     @JsonBackReference(value = "message-sender")
     User sender;
+
     @ManyToOne
     @JsonBackReference(value = "message-property")
     Property property;
