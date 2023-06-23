@@ -21,7 +21,7 @@ public class MessageController {
 
     @GetMapping
     ResponseEntity<ApiResponse<List<MessageDto>>> findAll() {
-        return getMessagesForUser();
+        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserOrderByDateTimeDesc(AUTH.getUserDetails().getId())));
     }
 
     @GetMapping("/{id}")
@@ -29,12 +29,13 @@ public class MessageController {
         MessageDto message = this.messageService.getById(id);
         if (Objects.equals(message.getRecipient().getId(), AUTH.getUserDetails().getId()) || Objects.equals(message.getSender().getId(), AUTH.getUserDetails().getId()))
             return ResponseEntity.ok(ApiResponse.success("Offer canceled successfully.", message));
-        return ResponseEntity.ok(ApiResponse.error("Message Not Found"));
+        else
+            return ResponseEntity.ok(ApiResponse.error("Message Not Found"));
     }
 
     @GetMapping("/user")
     ResponseEntity<ApiResponse<List<MessageDto>>> getMessagesForUser() {
-        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserOrderByDateTimeDesc(AUTH.getUserDetails())));
+        return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserOrderByDateTimeDesc(AUTH.getUserDetails().getId())));
     }
 
     @GetMapping("/user/{userId}/property/{propertyId}")
@@ -43,10 +44,11 @@ public class MessageController {
         if (paramPropertyId != null) {
             return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.",
                     messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(
-                            AUTH.getUserDetails(),paramPropertyId)
+                            AUTH.getUserDetails(), paramPropertyId)
             ));
+        } else {
+            return ResponseEntity.ok(ApiResponse.success("Message retrieved successfully.", messageService.getMessagesForUserOrderByDateTimeDesc(AUTH.getUserDetails().getId())));
         }
-        return getMessagesForUser();
     }
 
     @PostMapping()

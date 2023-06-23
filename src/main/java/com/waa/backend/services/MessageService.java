@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MessageService {
     MessageDto getById(Long id);
-    List<MessageDto> getMessagesForUserOrderByDateTimeDesc(User user);
+    List<MessageDto> getMessagesForUserOrderByDateTimeDesc(Long userId);
     List<MessageDto> getMessagesForUserForPropertyOrderByDateTimeDesc(User user, Long propertyDto);
     MessageDto postMessage(MessageRequest messageRequest, User user);
 }
